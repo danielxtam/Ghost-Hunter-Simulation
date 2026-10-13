@@ -43,7 +43,7 @@ int main()
     populateRooms(&house);
 
     GhostType* ghost = (GhostType*) malloc(sizeof(GhostType));
-    initGhost(POLTERGEIST, ghost, &house.rooms);
+    initGhost(randomGhost(), ghost, &house.rooms);
     
     HunterType* hunter1 = (HunterType*) malloc(sizeof(HunterType));
     initHunter(name1, device1, sharedEvidenceList, house.rooms.head->data, hunter1);
