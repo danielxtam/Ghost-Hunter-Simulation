@@ -4,7 +4,7 @@
     Returns a pseudo randomly generated number, in the range min to (max - 1), inclusively
         in:   lower end of the range of the generated number
         in:   upper end of the range of the generated number
-    return:   randomly generated integer in the range [0, max-1) 
+    return:   randomly generated integer in the range [0, max) 
 */
 int randInt(int min, int max)
 {
