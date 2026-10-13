@@ -71,18 +71,18 @@ int main()
     pthread_join(t_hunter3, NULL);
     pthread_join(t_hunter4, NULL);
     
-    int counter = 0;
-    counter += printStatus(hunter1);
-    counter += printStatus(hunter2);
-    counter += printStatus(hunter3);
-    counter += printStatus(hunter4);
-
-    if (counter >= 4) {
+    int gaveUp = 0;
+    gaveUp += printStatus(hunter1);
+    gaveUp += printStatus(hunter2);
+    gaveUp += printStatus(hunter3);
+    gaveUp += printStatus(hunter4);
+    
+    if (gaveUp >= 4) {
         printf("The Ghost has won!\n");
     }
 
     EvidenceNodeType* current = hunter1->collectedEvidence->head;
-    counter = 0;
+    int evidenceCount = 0;
     int emfFound = 0;
     int tempFound = 0;
     int fingerprintFound = 0;
@@ -91,36 +91,41 @@ int main()
     while (current != NULL) {
         if (current->evidence == 0) {
             printf(" - EMF\n");
-            counter++;
+            evidenceCount++;
             emfFound = 1;
         }
 
         else if (current->evidence == 1) {
             printf(" - TEMPERATURE\n");
-            counter++;
+            evidenceCount++;
             tempFound = 1;
         }
 
         else if (current->evidence == 2) {
             printf(" - FINGERPRINTS\n");
-            counter++;
+            evidenceCount++;
             fingerprintFound = 1;
         }
 
         else if (current->evidence == 3) {
             printf(" - SOUND\n");
-            counter++;
+            evidenceCount++;
         }
 
         current = current->next;
     }
     printf("\n");
     // if 3 or more unique pieces of evidence were found
-    if (counter >= 3) {
+    if (evidenceCount >= 3) {
+        if (gaveUp < 4){
+            // the hunters collected enough evidence, so the hunters win
+            printf("The hunters have won!\n");
+        }
+        
         // determine the ghost type given the types of evidence they found
         GhostClass ghostClass = determineGhost(emfFound, tempFound, fingerprintFound);
         if (ghostClass == POLTERGEIST) {
-            printf("The ghost was found to be a POLTEGEIST.\n");
+            printf("The ghost was found to be a POLTERGEIST.\n");
         }
         else if (ghostClass == BANSHEE) {
             printf("The ghost was found to be a BANSHEE.\n");
